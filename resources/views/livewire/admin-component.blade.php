@@ -12,7 +12,14 @@
     @endif
 
     <div class="col-12 mb-4 mt-3 px-3 d-flex justify-content-between">
-        <a href="{{ route('user') }}" class="btn btn-outline-primary ">User</a>
+        <div class="d-flex">
+            <a href="{{ route('user') }}" class="btn btn-outline-primary">User</a>
+            <form action="{{route('logout')}}" method="post" class="mx-4">
+                @csrf
+                @method('post')
+                <button type="submit" class="btn btn-outline-danger">Logout</button>
+            </form>
+        </div>
         <h3>{{ auth()->user()->name }}</h3>
     </div>
 
@@ -145,8 +152,7 @@
             <label for="" class="d-block mx-2" style="width:10%;font-size: 150%">U holda</label>
             <select class="form-select" aria-label="Default select example"  wire:model="step">
                 <option selected value="">Open this select menu</option>
-                <option value="1">Qadam</option>
-                <option value="2">Daraja</option>
+                <option value="daraja">Daraja</option>
             </select>
 
             <label for="" class="d-block mx-2" style="font-size: 150%"> = </label>
@@ -173,10 +179,10 @@
         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 200px" disabled>
         @php
         if(isset($rules)):
-        echo "Agar\n\t";
+        // echo (count($rules))?'':"Agar\n\t";
         foreach($rules as $key=>$ite):
         echo "P-".$ite->rule."\n\t";
-        echo   $ite->attribut->attribute." = ".$ite->value->value."\n\t";
+        echo   ($key+1).'). '.$ite->attribut->attribute." = ".$ite->value->value."\n\t";
         echo   (($ite->step==1)?"Qadam":"Daraja")." = ".$ite->result->result."\n\t";
         endforeach;
         endif;

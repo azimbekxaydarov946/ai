@@ -34,7 +34,7 @@ class AdminComponent extends Component
         $this->atributs = Attribut::all();
         $this->values = Value::all();
         $this->results = Result::all();
-        $this->rules = Rule::with('user', 'attribut', 'value', 'result')->get();
+        $this->rules = Rule::with('user', 'attribut', 'value', 'result')->where('user_id',auth()->user()->id)->get();
         // dd($this->rules);
         return view('livewire.admin-component', ['atributs' => $this->atributs, 'values' => $this->values, 'results' => $this->results, 'rules' => $this->rules])->layout('layouts.base');
     }
@@ -107,7 +107,6 @@ class AdminComponent extends Component
                         'value_id' => $this->size1,
                         'result_id' => $this->rating,
                         'rule' => $rule,
-                        'step' => $this->step,
                         'user_id' => auth()->user()->id,
                     ]);
                     session()->flash('success', 'Muvaffaqiyat saqlandi ');
@@ -124,7 +123,6 @@ class AdminComponent extends Component
                         'value_id' => $this->size2,
                         'result_id' => $this->rating,
                         'rule' => $rule,
-                        'step' => $this->step,
                         'user_id' => auth()->user()->id,
                     ]);
                     session()->flash('success', 'Muvaffaqiyat saqlandi ');
@@ -139,7 +137,6 @@ class AdminComponent extends Component
                         'value_id' => $this->size3,
                         'result_id' => $this->rating,
                         'rule' => $rule,
-                        'step' => $this->step,
                         'user_id' => auth()->user()->id,
                     ]);
                     session()->flash('success', 'Muvaffaqiyat saqlandi ');

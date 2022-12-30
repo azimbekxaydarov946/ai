@@ -19,4 +19,8 @@ class Result extends Model
     {
         return $this->hasMany(Rule::class, 'result_id', 'id');
     }
+    public function test()
+    {
+        return $this->hasMany(Test::class, 'result_id', 'id');
+    }
 }

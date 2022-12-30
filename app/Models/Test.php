@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rule extends Model
+class Test extends Model
 {
     use HasFactory;
 
-    protected $fillable=
+    protected $fillable =
     [
-        'attribute_id',
-        'value_id',
         'result_id',
-        'rule',
         'user_id',
+        'rule',
+        'step',
     ];
 
     public function user()
@@ -23,14 +22,6 @@ class Rule extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function attribut()
-    {
-        return $this->belongsTo(Attribut::class, 'attribute_id', 'id');
-    }
-    public function value()
-    {
-        return $this->belongsTo(Value::class, 'value_id', 'id');
-    }
     public function result()
     {
         return $this->belongsTo(Result::class, 'result_id', 'id');

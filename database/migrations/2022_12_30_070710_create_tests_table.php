@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rules', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('attribute_id');
-            $table->unsignedBigInteger('value_id');
-            $table->unsignedBigInteger('result_id')->nullable();
-            $table->integer('rule');
+            $table->unsignedBigInteger('result_id');
             $table->unsignedBigInteger('user_id');
+            $table->integer('rule');
+            $table->integer('step')->default(0)->comment('1- qadam; 2- daraja');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rules');
+        Schema::dropIfExists('tests');
     }
 };
