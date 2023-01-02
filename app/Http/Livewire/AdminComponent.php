@@ -34,7 +34,8 @@ class AdminComponent extends Component
         $this->atributs = Attribut::all();
         $this->values = Value::all();
         $this->results = Result::all();
-        $this->rules = Rule::with('user', 'attribut', 'value', 'result')->where('user_id',auth()->user()->id)->get();
+        $rules = Rule::orderBy('id', 'desc')->first();;
+        $this->rules = Rule::with('user', 'attribut', 'value', 'result')->where('user_id', auth()->user()->id)->where('rule', $rules->rule)->get();
         // dd($this->rules);
         return view('livewire.admin-component', ['atributs' => $this->atributs, 'values' => $this->values, 'results' => $this->results, 'rules' => $this->rules])->layout('layouts.base');
     }
@@ -111,12 +112,21 @@ class AdminComponent extends Component
                     ]);
                     session()->flash('success', 'Muvaffaqiyat saqlandi ');
                 }
-            } else {
-                session()->flash('error', 'Agardaga qiymat kiriting !!!');
             }
+            // else {
+            //     session()->flash('error', 'Agardaga qiymat kiriting !!!');
+            // }
             if (!empty($this->select2)) {
                 if (empty($this->rating)) {
-                    session()->flash('error', 'U holdada qiymat yo\'q !!!');
+                    $check = Rule::orderBy('id', 'desc')->first();
+                    Rule::create([
+                        'attribute_id' => $this->select2,
+                        'value_id' => $this->size2,
+                        'result_id' => $check->result_id,
+                        'rule' => $check->rule,
+                        'user_id' => auth()->user()->id,
+                    ]);
+                    session()->flash('success', 'Qoidaga qiymat qo\'shildi');
                 } else {
                     Rule::create([
                         'attribute_id' => $this->select2,
@@ -130,7 +140,15 @@ class AdminComponent extends Component
             }
             if (!empty($this->select3)) {
                 if (empty($this->rating)) {
-                    session()->flash('error', 'U holdaga qiymat kiriting !!!');
+                    $check = Rule::orderBy('id', 'desc')->first();
+                    Rule::create([
+                        'attribute_id' => $this->select3,
+                        'value_id' => $this->size3,
+                        'result_id' => $check->result_id,
+                        'rule' => $check->rule,
+                        'user_id' => auth()->user()->id,
+                    ]);
+                    session()->flash('success', 'Qoidaga qiymat qo\'shildi');
                 } else {
                     Rule::create([
                         'attribute_id' => $this->select3,

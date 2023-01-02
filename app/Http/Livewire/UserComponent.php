@@ -56,11 +56,11 @@ class UserComponent extends Component
 
     public function add_test($step)
     {
-        $input=Input::orderBy('id', 'desc')->first();
-        $test=Input::where('rule',$input->rule)->get();
+        $output=Input::orderBy('id', 'desc')->first();
+        $test=Input::where('rule',$output->rule)->get();
         for($i=0;$i<count($test);$i++){
             $test[$i]->update([
-                'step'=>$input->step+1
+                'step'=>$output->step+1
             ]);
         }
         session()->flash('success', 'Yechim' . ' muvaffaqiyat qo\'shildi ');
