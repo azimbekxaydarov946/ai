@@ -36,7 +36,7 @@ class AdminComponent extends Component
         $this->results = Result::all();
         $rules = Rule::orderBy('id', 'desc')->first();
         $this->rules = Rule::query()->with('user', 'attribut', 'value', 'result')->where('user_id', auth()->user()->id);
-        if ($this->rules) {
+        if ($this->rules && isset($rules->rule)) {
             $this->rules = $this->rules->where('rule', $rules->rule);
         }
         $this->rules = $this->rules->get();
