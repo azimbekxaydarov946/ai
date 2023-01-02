@@ -178,12 +178,14 @@
     <div class="form-floating mt-3">
         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 200px" disabled>
         @php
-        if(isset($rules)):
-        // echo (count($rules))?'':"Agar\n\t";
+        if(isset($rules) && !empty($atributs)):
+        echo "P-".$rules[0]->rule."\n\t";
+        echo "Agar:"."\n\t";
         foreach($rules as $key=>$ite):
-        echo "P-".$ite->rule."\n\t";
-        echo   ($key+1).'). '.$ite->attribut->attribute." = ".$ite->value->value."\n\t";
-        echo   (($ite->step==1)?"Qadam":"Daraja")." = ".$ite->result->result."\n\t";
+        if(isset($ite->attribut->attribute)&&isset($ite->value->value)&&isset($ite->result->result)){
+            echo   ($key+1).'). '.$ite->attribut->attribute." = ".$ite->value->value."\n\t";
+            echo   (($ite->step==1)?"Qadam":"Daraja")." = ".$ite->result->result."\n\t";
+        }
         endforeach;
         endif;
         @endphp

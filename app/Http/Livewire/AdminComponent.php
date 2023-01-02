@@ -34,9 +34,12 @@ class AdminComponent extends Component
         $this->atributs = Attribut::all();
         $this->values = Value::all();
         $this->results = Result::all();
-        $rules = Rule::orderBy('id', 'desc')->first();;
-        $this->rules = Rule::with('user', 'attribut', 'value', 'result')->where('user_id', auth()->user()->id)->where('rule', $rules->rule)->get();
-        // dd($this->rules);
+        $rules = Rule::orderBy('id', 'desc')->first();
+        $this->rules = Rule::query()->with('user', 'attribut', 'value', 'result')->where('user_id', auth()->user()->id);
+        if(empty($this->rules)){
+            $this->rules=$this->rules->where('rule', $rules->rule);
+        }
+        $this->rules=$this->rules->get();
         return view('livewire.admin-component', ['atributs' => $this->atributs, 'values' => $this->values, 'results' => $this->results, 'rules' => $this->rules])->layout('layouts.base');
     }
 
