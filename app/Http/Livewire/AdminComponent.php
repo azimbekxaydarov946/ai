@@ -36,7 +36,7 @@ class AdminComponent extends Component
         $this->results = Result::all();
         $rules = Rule::orderBy('id', 'desc')->first();
         $this->rules = Rule::query()->with('user', 'attribut', 'value', 'result')->where('user_id', auth()->user()->id);
-        if (empty($this->rules)) {
+        if ($this->rules) {
             $this->rules = $this->rules->where('rule', $rules->rule);
         }
         $this->rules = $this->rules->get();
@@ -108,7 +108,7 @@ class AdminComponent extends Component
         $rule = $check->rule ?? 0;
         $rule = $rule + 1;
         if ($rule > 0) {
-            if (!empty($this->select1)) {
+            if (!empty($this->select1) && (!empty($this->select2) || !empty($this->select3))) {
                 if (empty($this->rating)) {
                     session()->flash('error', 'U holdada qiymat yo\'q !!!');
                 } else {
@@ -121,10 +121,9 @@ class AdminComponent extends Component
                     ]);
                     session()->flash('success', 'Muvaffaqiyat saqlandi ');
                 }
+            } else {
+                session()->flash('error', 'Qiymat to\'liq emas !!!');
             }
-            // else {
-            //     session()->flash('error', 'Agardaga qiymat kiriting !!!');
-            // }
             if (!empty($this->select2)) {
                 if (empty($this->rating)) {
                     $check = Rule::orderBy('id', 'desc')->first();

@@ -182,11 +182,13 @@
         echo "P-".$rules[0]->rule."\n\t";
         echo "Agar:"."\n\t";
         foreach($rules as $key=>$ite):
-        if(isset($ite->attribut->attribute)&&isset($ite->value->value)&&isset($ite->result->result)){
+        if(isset($ite->attribut->attribute)&&isset($ite->value->value)){
             echo   ($key+1).'). '.$ite->attribut->attribute." = ".$ite->value->value."\n\t";
-            echo   (($ite->step==1)?"Qadam":"Daraja")." = ".$ite->result->result."\n\t";
         }
         endforeach;
+        if (isset($ite->result->result)) {
+            echo   (($ite->step==1)?"Qadam":"Daraja")." = ".$rules[0]->result->result."\n\t";
+        }
         endif;
         @endphp
         </textarea>
