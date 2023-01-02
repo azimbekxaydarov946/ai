@@ -108,21 +108,23 @@ class AdminComponent extends Component
         $rule = $check->rule ?? 0;
         $rule = $rule + 1;
         if ($rule > 0) {
-            if (!empty($this->select1) && (!empty($this->select2) || !empty($this->select3))) {
-                if (empty($this->rating)) {
-                    session()->flash('error', 'U holdada qiymat yo\'q !!!');
+            if (!empty($this->select1)) {
+                if (!empty($this->select2) || !empty($this->select3)) {
+                    if (empty($this->rating)) {
+                        session()->flash('error', 'U holdada qiymat yo\'q !!!');
+                    } else {
+                        Rule::create([
+                            'attribute_id' => $this->select1,
+                            'value_id' => $this->size1,
+                            'result_id' => $this->rating,
+                            'rule' => $rule,
+                            'user_id' => auth()->user()->id,
+                        ]);
+                        session()->flash('success', 'Muvaffaqiyat saqlandi ');
+                    }
                 } else {
-                    Rule::create([
-                        'attribute_id' => $this->select1,
-                        'value_id' => $this->size1,
-                        'result_id' => $this->rating,
-                        'rule' => $rule,
-                        'user_id' => auth()->user()->id,
-                    ]);
-                    session()->flash('success', 'Muvaffaqiyat saqlandi ');
+                    session()->flash('error', 'Qiymat to\'liq emas !!!');
                 }
-            } else {
-                session()->flash('error', 'Qiymat to\'liq emas !!!');
             }
             if (!empty($this->select2)) {
                 if (empty($this->rating)) {
