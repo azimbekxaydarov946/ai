@@ -178,7 +178,7 @@
     <div class="form-floating mt-3">
         <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2Disabled" style="height: 200px" disabled>
         @php
-        if(isset($rules) && !empty($atributs)):
+        if(count($rules)>0 && count($atributs)>0):
         echo "P-".$rules[0]->rule."\n\t";
         echo "Agar:"."\n\t";
         foreach($rules as $key=>$ite):
