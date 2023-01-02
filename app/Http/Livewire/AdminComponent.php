@@ -104,7 +104,7 @@ class AdminComponent extends Component
 
     public function add_rule()
     {
-        $check = Rule::orderBy('id', 'desc')->first();
+        $check = Rule::where('user_id',auth()->user()->id)->orderBy('id', 'desc')->first();
         $rule = $check->rule ?? 0;
         $rule = $rule + 1;
         if ($rule > 0) {
