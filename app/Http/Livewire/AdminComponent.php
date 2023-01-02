@@ -36,10 +36,10 @@ class AdminComponent extends Component
         $this->results = Result::all();
         $rules = Rule::orderBy('id', 'desc')->first();
         $this->rules = Rule::query()->with('user', 'attribut', 'value', 'result')->where('user_id', auth()->user()->id);
-        if(empty($this->rules)){
-            $this->rules=$this->rules->where('rule', $rules->rule);
+        if (empty($this->rules)) {
+            $this->rules = $this->rules->where('rule', $rules->rule);
         }
-        $this->rules=$this->rules->get();
+        $this->rules = $this->rules->get();
         return view('livewire.admin-component', ['atributs' => $this->atributs, 'values' => $this->values, 'results' => $this->results, 'rules' => $this->rules])->layout('layouts.base');
     }
 
@@ -49,9 +49,12 @@ class AdminComponent extends Component
         if (empty($error)) {
             $atribut = $this->check_test($this->atr);
             for ($i = 0; $i < count($atribut); $i++) {
-                Attribut::create([
-                    'attribute' => $atribut[$i]
-                ]);
+                str_replace('', ' ', $atribut[$i]);
+                if ($atribut[$i] != '') {
+                    Attribut::create([
+                        'attribute' => $atribut[$i]
+                    ]);
+                }
             }
             session()->flash('success', 'Attribut' . ' muvaffaqiyat saqlandi ');
         } else {
@@ -66,9 +69,12 @@ class AdminComponent extends Component
         if (empty($error)) {
             $values = $this->check_test($this->val);
             for ($i = 0; $i < count($values); $i++) {
-                Value::create([
-                    'value' => $values[$i]
-                ]);
+                str_replace('', ' ', $values[$i]);
+                if ($values[$i] != '') {
+                    Value::create([
+                        'value' => $values[$i]
+                    ]);
+                }
             }
             session()->flash('success', 'Qiymat' . ' muvaffaqiyat saqlandi ');
         } else {
@@ -172,39 +178,48 @@ class AdminComponent extends Component
     public function check_test($atr)
     {
         if (strpos($atr, ',')) {
+            $atr = str_replace('', ' ', $atr);
             $atribut = explode(',', $atr);
             return $atribut;
         } else
         if (strpos($atr, '.')) {
+            $atr = str_replace('', ' ', $atr);
             $atribut = explode('.', $atr);
             return $atribut;
         } else
         if (strpos($atr, '-')) {
+            $atr = str_replace('', ' ', $atr);
             $atribut = explode('-', $atr);
             return $atribut;
         } else
         if (strpos($atr, '*')) {
+            $atr = str_replace('', ' ', $atr);
             $atribut = explode('*', $atr);
             return $atribut;
         } else
         if (strpos($atr, ')')) {
+            $atr = str_replace('', ' ', $atr);
             $atribut = explode(')', $atr);
             return $atribut;
         } else
         if (strpos($atr, '+')) {
+            $atr = str_replace('', ' ', $atr);
             $atribut = explode('+', $atr);
             return $atribut;
         } else
         if (strpos($atr, '/')) {
+            $atr = str_replace('', ' ', $atr);
             $atribut = explode('/', $atr);
             return $atribut;
         } else
         if (strpos($atr, '=')) {
+            $atr = str_replace('', ' ', $atr);
             $atribut = explode('=', $atr);
             return $atribut;
         } else
         if (strpos($atr, ' ')) {
-            $atribut = explode(' ', $atr);
+            $atr = str_replace(',', ' ', $atr);
+            $atribut = explode(',', $atr);
             return $atribut;
         } else {
             $atribut[] = $atr;
