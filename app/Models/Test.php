@@ -13,7 +13,7 @@ class Test extends Model
     [
         'result_id',
         'user_id',
-        'rule',
+        // 'rule',
         'step',
     ];
 

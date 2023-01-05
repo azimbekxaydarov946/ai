@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('attribute_id')->nullable();
             $table->integer('value_id')->nullable();
             $table->integer('rule')->nullable();
-            $table->integer('step')->default(0)->comment('1- qadam; 2- daraja');
+            // $table->integer('step')->default(0)->comment('1- qadam; 2- daraja');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();
         });

@@ -149,7 +149,7 @@
         </div>
 
         <div class="d-flex">
-            <label for="" class="d-block mx-2" style="width:10%;font-size: 150%">U holda</label>
+            <label for="" class="d-block mx-2" style="width:15%;font-size: 150%">U holda</label>
             <select class="form-select" aria-label="Default select example"  wire:model="step">
                 <option selected value="">Open this select menu</option>
                 <option value="daraja">Daraja</option>

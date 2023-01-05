@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('result_id');
             $table->unsignedBigInteger('user_id');
             $table->integer('rule');
-            $table->integer('step')->default(0)->comment('1- qadam; 2- daraja');
+            // $table->integer('step')->default(0)->comment('1- qadam; 2- daraja');
             $table->timestamps();
         });
     }

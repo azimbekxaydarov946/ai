@@ -104,7 +104,7 @@ class AdminComponent extends Component
 
     public function add_rule()
     {
-        $check = Rule::where('user_id',auth()->user()->id)->orderBy('id', 'desc')->first();
+        $check = Rule::where('user_id', auth()->user()->id)->orderBy('id', 'desc')->first();
         $rule = $check->rule ?? 0;
         $rule = $rule + 1;
         if ($rule > 0) {
@@ -137,6 +137,17 @@ class AdminComponent extends Component
                         'user_id' => auth()->user()->id,
                     ]);
                     session()->flash('success', 'Qoidaga qiymat qo\'shildi');
+                } else
+                if (!empty($this->rating) && empty($this->select1)) {
+                    $check = Rule::orderBy('id', 'desc')->first();
+                    Rule::create([
+                        'attribute_id' => $this->select2,
+                        'value_id' => $this->size2,
+                        'result_id' => $check->result_id,
+                        'rule' => $check->rule,
+                        'user_id' => auth()->user()->id,
+                    ]);
+                    session()->flash('success', 'Qoidaga qiymat qo\'shildi');
                 } else {
                     Rule::create([
                         'attribute_id' => $this->select2,
@@ -154,6 +165,17 @@ class AdminComponent extends Component
                     Rule::create([
                         'attribute_id' => $this->select3,
                         'value_id' => $this->size3,
+                        'result_id' => $check->result_id,
+                        'rule' => $check->rule,
+                        'user_id' => auth()->user()->id,
+                    ]);
+                    session()->flash('success', 'Qoidaga qiymat qo\'shildi');
+                } else
+                if (!empty($this->rating) && empty($this->select1)) {
+                    $check = Rule::orderBy('id', 'desc')->first();
+                    Rule::create([
+                        'attribute_id' => $this->select2,
+                        'value_id' => $this->size2,
                         'result_id' => $check->result_id,
                         'rule' => $check->rule,
                         'user_id' => auth()->user()->id,

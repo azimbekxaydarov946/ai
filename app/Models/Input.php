@@ -14,7 +14,7 @@ class Input extends Model
         'attribute_id',
         'value_id',
         'rule',
-        'step',
+        // 'step',
         'user_id',
     ];
 
