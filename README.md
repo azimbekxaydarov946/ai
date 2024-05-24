@@ -6,6 +6,12 @@
 
 <h3><b>Installation steps:</b></h3><br/>
 
+<h3><b>Insrall npm: </b></h3><br/>
+
+<code>npm install --save-dev vite</code>
+
+<code>npx vite build</code>
+
 <code>git clone  https://github.com/azimbekxaydarov946/ai.git</code>
 
 <code>cd ai</code>
